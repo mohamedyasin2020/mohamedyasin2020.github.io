@@ -1,812 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>N. Mohamed Yaasin — Flutter Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Yasin — Flutter Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0b0e14;
-    --bg2: #111520;
-    --bg3: #161c2a;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --gold-dim: #8a6d2f;
-    --text: #e8e4db;
-    --muted: #6e7a8a;
-    --line: rgba(201,168,76,0.18);
-    --card: rgba(255,255,255,0.03);
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0A0A0F;
+    --bg2:#12121A;
+    --bg3:#1A1A26;
+    --border:#ffffff12;
+    --border2:#ffffff22;
+    --accent:#6C63FF;
+    --accent2:#00D9A3;
+    --text:#F0EFF8;
+    --muted:#8B8A99;
+    --card:#13131C;
   }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.2}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 3rem;
+    background:rgba(10,10,15,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:0.5px solid var(--border);
+  }
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:0.05em}
+  .nav-logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:0.875rem;
+    font-weight:500;letter-spacing:0.04em;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover{color:var(--text)}
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding:6rem 3rem 4rem;
+    position:relative;overflow:hidden;
   }
-
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 999; opacity: 0.4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.4rem 6vw;
-    display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(18px);
-    background: rgba(11,14,20,0.75);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 6vw 8vh;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
+  .hero-grid{
+    position:absolute;inset:0;
     background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+      linear-gradient(rgba(108,99,255,0.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(108,99,255,0.04) 1px,transparent 1px);
+    background-size:60px 60px;
   }
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    top: 8%; right: -8%;
-    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: pulse 6s ease-in-out infinite;
+  .hero-glow{
+    position:absolute;top:-200px;right:-200px;
+    width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(108,99,255,0.12) 0%,transparent 70%);
+    pointer-events:none;
   }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.08); opacity: 0.6; }
+  .hero-glow2{
+    position:absolute;bottom:-100px;left:-100px;
+    width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,217,163,0.08) 0%,transparent 70%);
+    pointer-events:none;
   }
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1.4rem;
-    display: flex; align-items: center; gap: 1rem;
-    animation: fadeUp 0.8s ease forwards;
-    opacity: 0;
+  .hero-content{position:relative;max-width:800px}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:100px;
+    border:0.5px solid var(--border2);
+    background:rgba(108,99,255,0.08);
+    font-size:0.8rem;color:var(--accent);
+    font-weight:500;letter-spacing:0.05em;
+    margin-bottom:1.5rem;
   }
-  .hero-tag::before {
-    content: '';
-    display: inline-block; width: 40px; height: 1px;
-    background: var(--gold);
+  .hero-badge::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--accent2);animation:pulse 2s infinite;
   }
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(4rem, 9vw, 9rem);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    animation: fadeUp 0.8s 0.15s ease forwards;
-    opacity: 0;
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .hero h1{
+    font-size:clamp(3rem,7vw,5.5rem);
+    font-weight:800;line-height:1;
+    margin-bottom:1rem;
   }
-  .hero-name em {
-    font-style: italic;
-    color: var(--gold);
+  .hero h1 .line2{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   }
-  .hero-sub {
-    margin-top: 2rem;
-    max-width: 520px;
-    font-size: 1rem;
-    color: var(--muted);
-    animation: fadeUp 0.8s 0.3s ease forwards;
-    opacity: 0;
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;margin-bottom:2.5rem;font-weight:300}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn{
+    padding:0.75rem 1.75rem;border-radius:8px;
+    font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:600;
+    cursor:pointer;text-decoration:none;
+    transition:all 0.2s;letter-spacing:0.04em;
+    display:inline-flex;align-items:center;gap:8px;
   }
-  .hero-cta {
-    margin-top: 3rem;
-    display: flex; gap: 1.4rem; align-items: center;
-    animation: fadeUp 0.8s 0.45s ease forwards;
-    opacity: 0;
+  .btn-primary{
+    background:var(--accent);color:#fff;border:none;
   }
-  .btn-primary {
-    display: inline-block;
-    padding: 0.85rem 2.4rem;
-    background: var(--gold);
-    color: var(--bg);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
+  .btn-primary:hover{background:#7C74FF;transform:translateY(-1px)}
+  .btn-ghost{
+    background:transparent;color:var(--text);
+    border:0.5px solid var(--border2);
   }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .btn-ghost {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid var(--muted);
-    transition: color 0.3s, border-color 0.3s;
+  .btn-ghost:hover{background:rgba(255,255,255,0.05)}
+
+  .hero-stats{
+    display:flex;gap:3rem;margin-top:3.5rem;
+    padding-top:2.5rem;
+    border-top:0.5px solid var(--border);
   }
-  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
-  .scroll-hint {
-    position: absolute; right: 6vw; bottom: 8vh;
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    animation: fadeUp 0.8s 0.6s ease forwards;
-    opacity: 0;
+  .stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800}
+  .stat-num span{color:var(--accent)}
+  .stat-label{font-size:0.8rem;color:var(--muted);letter-spacing:0.04em;margin-top:2px}
+
+  /* SECTION */
+  section{padding:6rem 3rem}
+  .section-label{
+    font-size:0.75rem;letter-spacing:0.15em;color:var(--accent2);
+    font-family:'Syne',sans-serif;font-weight:600;
+    text-transform:uppercase;margin-bottom:0.75rem;
   }
-  .scroll-hint span {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    writing-mode: vertical-rl;
+  .section-title{
+    font-size:clamp(1.8rem,4vw,3rem);font-weight:800;
+    margin-bottom:1rem;
   }
-  .scroll-line {
-    width: 1px; height: 60px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollDrop 2s ease-in-out infinite;
+  .section-sub{font-size:1rem;color:var(--muted);max-width:540px;margin-bottom:3rem;font-weight:300}
+
+  /* EXPERIENCE */
+  #experience{background:var(--bg2)}
+  .exp-card{
+    border:0.5px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:0 12px 12px 0;
+    padding:2rem 2.5rem;
+    background:var(--card);
+    position:relative;
   }
-  @keyframes scrollDrop {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+  .exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}
+  .exp-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700}
+  .exp-company{color:var(--accent2);font-size:0.9rem;font-weight:500;margin-top:2px}
+  .exp-date{
+    font-size:0.8rem;color:var(--muted);
+    border:0.5px solid var(--border2);padding:4px 12px;
+    border-radius:100px;white-space:nowrap;
   }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to { opacity: 1; transform: translateY(0); }
+  .exp-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem}
+  .exp-list li{
+    font-size:0.9rem;color:var(--muted);
+    padding-left:1.2rem;position:relative;
+  }
+  .exp-list li::before{
+    content:'';position:absolute;left:0;top:10px;
+    width:5px;height:5px;border-radius:50%;
+    background:var(--accent);
   }
 
-  /* ── SECTIONS ── */
-  section { padding: 8rem 6vw; }
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: flex; align-items: center; gap: 1rem;
-    margin-bottom: 3.5rem;
+  /* SKILLS */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.5rem;
   }
-  .section-label::after {
-    content: '';
-    flex: 1; max-width: 80px; height: 1px;
-    background: var(--gold-dim);
+  .skill-card{
+    border:0.5px solid var(--border);border-radius:12px;
+    padding:1.5rem;background:var(--card);
+    transition:border-color 0.2s,transform 0.2s;
   }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 1rem;
+  .skill-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+  .skill-icon{
+    width:40px;height:40px;border-radius:10px;
+    background:rgba(108,99,255,0.1);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1rem;font-size:1.2rem;
   }
-  .section-title em { font-style: italic; color: var(--gold); }
-
-  /* ── ABOUT / SKILLS ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-  .about-text { font-size: 1.05rem; color: var(--muted); line-height: 1.9; }
-  .about-text strong { color: var(--text); font-weight: 500; }
-  .skills-list { display: flex; flex-direction: column; gap: 1.2rem; }
-  .skill-item {}
-  .skill-meta {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 0.45rem;
-  }
-  .skill-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-  .skill-pct {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--gold);
-  }
-  .skill-bar {
-    height: 1px;
-    background: rgba(255,255,255,0.07);
-    position: relative;
-    overflow: visible;
-  }
-  .skill-fill {
-    position: absolute; top: 0; left: 0; height: 100%;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
-  }
-  .skill-fill.animate { transform: scaleX(1); }
-  .skill-dot {
-    position: absolute; top: 50%; right: -3px;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--gold);
-    transform: translateY(-50%) scale(0);
-    transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
-  }
-  .skill-fill.animate .skill-dot { transform: translateY(-50%) scale(1); }
-
-  /* ── EXPERIENCE ── */
-  .exp-section { background: var(--bg2); }
-  .exp-card {
-    border: 1px solid var(--line);
-    padding: 3rem;
-    position: relative;
-    background: var(--card);
-    transition: border-color 0.3s;
-  }
-  .exp-card:hover { border-color: var(--gold-dim); }
-  .exp-card::before {
-    content: '';
-    position: absolute; top: -1px; left: 3rem; right: 3rem;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .exp-card:hover::before { opacity: 1; }
-  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem; }
-  .exp-role {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem;
-    font-weight: 300;
-    color: var(--text);
-  }
-  .exp-company {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-top: 0.3rem;
-  }
-  .exp-duration {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-align: right;
-  }
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
-  .exp-bullets li {
-    display: flex; gap: 1rem; align-items: flex-start;
-    font-size: 0.95rem; color: var(--muted);
-  }
-  .exp-bullets li::before {
-    content: '→';
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    flex-shrink: 0; margin-top: 0.05rem;
+  .skill-card h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.75rem}
+  .tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem}
+  .tag{
+    font-size:0.75rem;padding:3px 10px;border-radius:100px;
+    border:0.5px solid var(--border2);color:var(--muted);
+    background:rgba(255,255,255,0.03);
   }
 
-  /* ── PROJECTS ── */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 2px;
-    margin-top: 4rem;
+  /* PROJECTS */
+  #projects{background:var(--bg2)}
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:1.5rem;
   }
-  .proj-card {
-    background: var(--bg3);
-    padding: 2.8rem;
-    border: 1px solid var(--line);
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    cursor: pointer;
+  .proj-card{
+    border:0.5px solid var(--border);border-radius:16px;
+    padding:2rem;background:var(--card);
+    display:flex;flex-direction:column;gap:1rem;
+    transition:border-color 0.2s,transform 0.2s;
+    position:relative;overflow:hidden;
   }
-  .proj-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
-  .proj-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  .proj-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    opacity:0;transition:opacity 0.3s;
   }
-  .proj-card:hover::after { transform: scaleX(1); }
-  .proj-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 5rem;
-    font-weight: 300;
-    color: rgba(201,168,76,0.07);
-    line-height: 1;
-    margin-bottom: -0.5rem;
+  .proj-card:hover{border-color:rgba(108,99,255,0.4);transform:translateY(-4px)}
+  .proj-card:hover::before{opacity:1}
+  .proj-year{
+    font-size:0.75rem;color:var(--muted);letter-spacing:0.06em;
+    font-family:'Syne',sans-serif;
   }
-  .proj-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 0.8rem;
-  }
-  .proj-env {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-  .proj-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
-  .proj-link {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    margin-top: 1.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    color: var(--gold-dim);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .proj-link:hover { color: var(--gold); }
-  .proj-link span { border-bottom: 1px solid currentColor; }
-
-  /* ── EDUCATION ── */
-  .edu-section { background: var(--bg2); }
-  .edu-timeline { display: flex; flex-direction: column; gap: 0; }
-  .edu-item {
-    display: grid;
-    grid-template-columns: 180px 1px 1fr;
-    gap: 0 3rem;
-    align-items: start;
-    padding: 2.5rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .edu-item:last-child { border-bottom: none; }
-  .edu-year {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    padding-top: 0.1rem;
-  }
-  .edu-divider {
-    background: var(--line);
-    position: relative;
-  }
-  .edu-divider::before {
-    content: '';
-    position: absolute; top: 0.4rem; left: 50%;
-    transform: translateX(-50%);
-    width: 7px; height: 7px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    background: var(--bg2);
-  }
-  .edu-degree {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-  }
-  .edu-school {
-    font-size: 0.88rem;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-  }
-  .edu-grade {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    color: var(--gold);
+  .proj-card h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700}
+  .proj-card p{font-size:0.875rem;color:var(--muted);line-height:1.6}
+  .proj-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:auto}
+  .tech-pill{
+    font-size:0.72rem;padding:3px 10px;border-radius:100px;
+    background:rgba(108,99,255,0.08);color:var(--accent);
+    border:0.5px solid rgba(108,99,255,0.2);
   }
 
-  /* ── CONTACT ── */
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
+  /* EDUCATION + ACHIEVEMENT */
+  .dual-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2rem;
   }
-  .contact-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 3vw, 3rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.3;
-    color: var(--text);
-    border-left: 1px solid var(--gold);
-    padding-left: 2rem;
+  @media(max-width:640px){.dual-grid{grid-template-columns:1fr}}
+  .info-card{
+    border:0.5px solid var(--border);border-radius:12px;
+    padding:1.75rem;background:var(--card);height:100%;
   }
-  .contact-items { display: flex; flex-direction: column; gap: 2rem; }
-  .contact-row {
-    display: flex; align-items: flex-start; gap: 1.2rem;
-  }
-  .contact-icon {
-    width: 40px; height: 40px;
-    border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 1rem;
-    color: var(--gold);
-  }
-  .contact-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.25rem;
-  }
-  .contact-value {
-    font-size: 0.92rem;
-    color: var(--text);
-  }
-  .contact-value a {
-    color: var(--text); text-decoration: none;
-    transition: color 0.3s;
-  }
-  .contact-value a:hover { color: var(--gold); }
+  .info-card .ic-label{font-size:0.72rem;letter-spacing:0.12em;color:var(--accent2);font-weight:600;text-transform:uppercase;margin-bottom:0.5rem}
+  .info-card h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.25rem}
+  .info-card .ic-sub{font-size:0.875rem;color:var(--accent);margin-bottom:0.25rem}
+  .info-card .ic-date{font-size:0.8rem;color:var(--muted);margin-bottom:1rem}
+  .info-card p{font-size:0.875rem;color:var(--muted);line-height:1.6}
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 2rem 6vw;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
+  /* CONTACT */
+  #contact{background:var(--bg2)}
+  .contact-inner{
+    max-width:680px;margin:0 auto;text-align:center;
   }
-  footer p {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
+  .contact-links{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;
+    margin-top:2.5rem;
   }
-  .footer-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: var(--gold);
+  .contact-link{
+    display:flex;align-items:center;gap:8px;
+    padding:0.75rem 1.5rem;
+    border:0.5px solid var(--border2);border-radius:100px;
+    color:var(--muted);text-decoration:none;
+    font-size:0.875rem;font-weight:500;
+    transition:all 0.2s;background:var(--card);
+  }
+  .contact-link:hover{color:var(--text);border-color:var(--accent);background:rgba(108,99,255,0.08)}
+  .contact-link svg{width:16px;height:16px;flex-shrink:0}
+
+  /* FOOTER */
+  footer{
+    text-align:center;padding:2rem;
+    border-top:0.5px solid var(--border);
+    font-size:0.8rem;color:var(--muted);
   }
 
-  /* ── REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 5vw; }
-    .nav-links { display: none; }
-    .hero { padding: 0 5vw 8vh; }
-    section { padding: 5rem 5vw; }
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .edu-item { grid-template-columns: 100px 1px 1fr; gap: 0 1.5rem; }
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem}
+    .nav-links{display:none}
+    .hero,section{padding:5rem 1.5rem}
+    .hero-stats{gap:1.5rem}
+    .exp-card{padding:1.5rem}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">MY.</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-logo">MY<span>.</span></div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
-  <div class="hero-tag">Flutter Developer · Chennai, India</div>
-  <h1 class="hero-name">N. Mohamed<br/><em>Yasin.</em></h1>
-  <p class="hero-sub">Building high-performance, beautiful mobile experiences with Flutter &amp; Dart — from pixel-perfect UI to seamless API integrations.</p>
-  <div class="hero-cta">
-    <a href="#projects" class="btn-primary">View Projects</a>
-    <a href="#contact" class="btn-ghost">Get in Touch</a>
-  </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
-
-<!-- ABOUT / SKILLS -->
-<section id="about">
-  <div class="section-label">01 — About</div>
-  <div class="about-grid reveal">
-    <div>
-      <h2 class="section-title">Crafting <em>Mobile</em><br/>Experiences</h2>
-      <p class="about-text" style="margin-top:2rem;">
-        I am a <strong>Flutter Developer</strong> with hands-on internship experience at <strong>GB Tech CORP</strong>, where I developed and maintained mobile application features using Flutter and Dart.
-        <br/><br/>
-        My foundation includes a <strong>Bachelor's in Computer Applications</strong> from PRIST University (83%), complemented by a 4+ month intensive Flutter mobile application development course at Tidy Life India Private Limited.
-        <br/><br/>
-        I am driven by a passion for clean code, responsive UI design, and delivering apps that feel both intuitive and performant.
-      </p>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for opportunities</div>
+    <h1>
+      Mohamed<br>
+      <span class="line2">Yasin</span>
+    </h1>
+    <p class="hero-sub">Flutter Developer crafting cross-platform mobile experiences — blending clean code with intuitive UI design.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
-    <div>
-      <h3 style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;">Technical Skills</h3>
-      <div class="skills-list">
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">Flutter Development</span>
-            <span class="skill-pct">90%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:90%"><div class="skill-dot"></div></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">Dart Programming</span>
-            <span class="skill-pct">88%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:88%"><div class="skill-dot"></div></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">REST APIs</span>
-            <span class="skill-pct">80%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"><div class="skill-dot"></div></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">Firebase</span>
-            <span class="skill-pct">75%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"><div class="skill-dot"></div></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">UI Design</span>
-            <span class="skill-pct">82%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:82%"><div class="skill-dot"></div></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-meta">
-            <span class="skill-name">Local Storage</span>
-            <span class="skill-pct">78%</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" style="width:78%"><div class="skill-dot"></div></div></div>
-        </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Months Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Apps Shipped</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Cross-Platform</div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">Building apps people love</div>
+  <p style="color:var(--muted);max-width:640px;font-size:1rem;line-height:1.8;font-weight:300;">
+    I'm a Flutter Developer with 10 months of hands-on experience designing and building mobile applications. I specialise in building user-friendly interfaces, integrating REST APIs, and optimising app performance for seamless user experience across both Android and iOS. I thrive in cross-functional teams and have a strong track record of delivering projects on time.
+  </p>
 </section>
 
 <!-- EXPERIENCE -->
-<section class="exp-section" id="experience">
-  <div class="section-label">02 — Experience</div>
-  <h2 class="section-title reveal">Professional <em>Journey</em></h2>
-  <div style="margin-top:3.5rem;" class="reveal">
-    <div class="exp-card">
-      <div class="exp-header">
-        <div>
-          <div class="exp-company">GB Tech CORP</div>
-          <div class="exp-role">Flutter Developer Intern</div>
-        </div>
-        <div class="exp-duration">
-          14 July 2025 — Present<br/>
-          <span style="color:var(--gold)">3 Months</span>
-        </div>
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <div class="section-title">Work history</div>
+  <div class="exp-card">
+    <div class="exp-header">
+      <div>
+        <div class="exp-title">Flutter Developer</div>
+        <div class="exp-company">GB Tech Corp — Chennai</div>
       </div>
-      <ul class="exp-bullets">
-        <li>Developed and maintained mobile application features using Flutter and Dart, contributing to production-ready codebases.</li>
-        <li>Implemented responsive UI components, ensuring consistent experience across Android screen sizes.</li>
-        <li>Optimised app performance through efficient state management and build optimisations.</li>
-        <li>Integrated REST APIs for dynamic data fetching and real-time display within the app.</li>
-        <li>Collaborated with cross-functional team members and worked on real-world client projects.</li>
-      </ul>
+      <div class="exp-date">Jul 2025 — Present</div>
     </div>
+    <ul class="exp-list">
+      <li>Designed and developed cross-platform mobile applications using the Flutter framework</li>
+      <li>Built custom widgets and animations to enhance user experience</li>
+      <li>Implemented RESTful API integration for data retrieval and storage</li>
+      <li>Optimised app performance for various devices and screen sizes</li>
+      <li>Collaborated with designers and product managers to deliver user-friendly interfaces</li>
+      <li>Worked in Agile development teams, ensuring timely delivery through iterative releases</li>
+    </ul>
+  </div>
+</section>
 
-    <div class="exp-card" style="margin-top:2px; border-top:none;">
-      <div class="exp-header">
-        <div>
-          <div class="exp-company">Tidy Life India Private Limited</div>
-          <div class="exp-role">Flutter Development Course</div>
-        </div>
-        <div class="exp-duration">
-          4+ Months<br/>
-          <span style="color:var(--gold)">Certification</span>
-        </div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <div class="section-title">Technical expertise</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <h4>Flutter Development</h4>
+      <div class="tags">
+        <span class="tag">Flutter</span>
+        <span class="tag">Dart</span>
+        <span class="tag">Custom Widgets</span>
+        <span class="tag">Animations</span>
+        <span class="tag">Cross-platform</span>
       </div>
-      <ul class="exp-bullets">
-        <li>Completed an intensive 4+ month mobile application development programme focused on Flutter and Dart.</li>
-        <li>Built foundational skills in widget trees, routing, state management, and asynchronous programming.</li>
-        <li>Applied learning through hands-on project builds including interactive apps.</li>
-      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <h4>UI & UX</h4>
+      <div class="tags">
+        <span class="tag">Material Design</span>
+        <span class="tag">Cupertino</span>
+        <span class="tag">Responsive Design</span>
+        <span class="tag">UI Design</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔗</div>
+      <h4>Backend & Integration</h4>
+      <div class="tags">
+        <span class="tag">REST APIs</span>
+        <span class="tag">JSON Parsing</span>
+        <span class="tag">Firebase Auth</span>
+        <span class="tag">Cloud Messaging</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h4>State & Tooling</h4>
+      <div class="tags">
+        <span class="tag">Provider</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Android Studio</span>
+        <span class="tag">Unit Testing</span>
+        <span class="tag">Debugging</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label">03 — Projects</div>
-  <h2 class="section-title reveal">Selected <em>Works</em></h2>
+  <div class="section-label">Projects</div>
+  <div class="section-title">Things I've built</div>
   <div class="projects-grid">
-    <div class="proj-card reveal">
-      <div class="proj-number">01</div>
-      <div class="proj-name">Quiz App</div>
-      <div class="proj-env">Flutter SDK · Dart · Android Studio</div>
-      <p class="proj-desc">A sleek and interactive quiz application featuring multiple question types and real-time score tracking. Built with a focus on smooth UI transitions and engaging user experience.</p>
-      <a href="https://github.com/mohamedyasin2020/Quiz-app" target="_blank" class="proj-link">
-        <span>View on GitHub</span> ↗
-      </a>
+    <div class="proj-card">
+      <div class="proj-year">Mar 2026</div>
+      <h3>Bus Tracker — Zion</h3>
+      <p>Real-time bus tracking system enhancing student safety. Features role-based access (Admin, Super Admin, Transport In-charge), parent emergency notifications, and remote student data management.</p>
+      <div class="proj-tech">
+        <span class="tech-pill">Flutter</span>
+        <span class="tech-pill">Dart</span>
+        <span class="tech-pill">Real-time Tracking</span>
+        <span class="tech-pill">Role-based Auth</span>
+      </div>
     </div>
-    <div class="proj-card reveal" style="transition-delay:0.15s;">
-      <div class="proj-number">02</div>
-      <div class="proj-name">Calculator</div>
-      <div class="proj-env">Flutter SDK · Dart · Android Studio</div>
-      <p class="proj-desc">A clean, functional calculator application providing basic arithmetic operations — addition, subtraction, multiplication, and division — with a polished and intuitive interface.</p>
-      <a href="https://github.com/mohamedyasin2020/Calculator" target="_blank" class="proj-link">
-        <span>View on GitHub</span> ↗
-      </a>
+    <div class="proj-card">
+      <div class="proj-year">Dec 2025</div>
+      <h3>Face Recognition App — Deesports</h3>
+      <p>Mobile app with face recognition-based login and logout. Multi-user access with separate flows for students and members, game selection, and personalised experiences.</p>
+      <div class="proj-tech">
+        <span class="tech-pill">Flutter</span>
+        <span class="tech-pill">Dart</span>
+        <span class="tech-pill">Face Recognition</span>
+        <span class="tech-pill">API Integration</span>
+      </div>
     </div>
-  </div>
-  <div style="margin-top:3rem;text-align:center;" class="reveal">
-    <a href="https://github.com/mohamedyasin2020?tab=repositories" target="_blank" class="btn-ghost">
-      View All Repositories on GitHub
-    </a>
+    <div class="proj-card">
+      <div class="proj-year">Oct 2025</div>
+      <h3>E-commerce App — Dhiya Mart</h3>
+      <p>Full-featured e-commerce mobile app with smooth UI, REST API integration, third-party payment gateways, and shipping provider connections. Optimised for performance and UI responsiveness.</p>
+      <div class="proj-tech">
+        <span class="tech-pill">Flutter</span>
+        <span class="tech-pill">Dart</span>
+        <span class="tech-pill">REST APIs</span>
+        <span class="tech-pill">Payment Gateway</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
-<section class="edu-section" id="education">
-  <div class="section-label">04 — Education</div>
-  <h2 class="section-title reveal">Academic <em>Background</em></h2>
-  <div class="edu-timeline" style="margin-top:3.5rem;">
-    <div class="edu-item reveal">
-      <div class="edu-year">2019 – 2022</div>
-      <div class="edu-divider"></div>
-      <div>
-        <div class="edu-degree">Bachelor of Computer Applications</div>
-        <div class="edu-school">PRIST University</div>
-        <div class="edu-grade">Score: 83%</div>
-      </div>
+<!-- EDUCATION + ACHIEVEMENT -->
+<section id="education">
+  <div class="section-label">Background</div>
+  <div class="section-title">Education & training</div>
+  <div class="dual-grid">
+    <div class="info-card">
+      <div class="ic-label">Education</div>
+      <h3>Bachelor of Computer Application</h3>
+      <div class="ic-sub">PRIST University</div>
+      <div class="ic-date">May 2019 — May 2022 · Thanjavur, Tamil Nadu</div>
     </div>
-    <div class="edu-item reveal">
-      <div class="edu-year">2015 – 2017</div>
-      <div class="edu-divider"></div>
-      <div>
-        <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
-        <div class="edu-school">Transri Ubaidulla Matriculation Hr. Sec. School, Rajagiri</div>
-        <div class="edu-grade">Score: 63.5%</div>
-      </div>
-    </div>
-    <div class="edu-item reveal">
-      <div class="edu-year">2014 – 2015</div>
-      <div class="edu-divider"></div>
-      <div>
-        <div class="edu-degree">Secondary School Leaving Certificate (SSLC)</div>
-        <div class="edu-school">Abidean Matriculation School, Papanasm</div>
-        <div class="edu-grade">Score: 69.7%</div>
-      </div>
+    <div class="info-card">
+      <div class="ic-label">Internship</div>
+      <h3>Flutter Development Internship</h3>
+      <div class="ic-sub">Tidy Life India Pvt Ltd</div>
+      <div class="ic-date">Feb 2024 — May 2024 · Chennai, Tamil Nadu</div>
+      <p>Gained hands-on experience developing Flutter apps, integrating REST APIs, building responsive UIs, and creating custom widgets to enhance usability and performance.</p>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">05 — Contact</div>
-  <div class="contact-inner reveal">
-    <div>
-      <blockquote class="contact-quote">
-        "Open to new opportunities and exciting collaborations."
-      </blockquote>
-    </div>
-    <div class="contact-items">
-      <div class="contact-row">
-        <div class="contact-icon">✉</div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value"><a href="mailto:mohamednyasin@gmail.com">mohamednyasin@gmail.com</a></div>
-        </div>
-      </div>
-      <div class="contact-row">
-        <div class="contact-icon">☎</div>
-        <div>
-          <div class="contact-label">Phone</div>
-          <div class="contact-value"><a href="tel:+918637431026">+91 863 743 1026</a></div>
-        </div>
-      </div>
-      <div class="contact-row">
-        <div class="contact-icon">in</div>
-        <div>
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value"><a href="https://www.linkedin.com/in/mohdya" target="_blank">linkedin.com/in/mohdya</a></div>
-        </div>
-      </div>
-      <div class="contact-row">
-        <div class="contact-icon">⌥</div>
-        <div>
-          <div class="contact-label">GitHub</div>
-          <div class="contact-value"><a href="https://github.com/mohamedyasin2020" target="_blank">github.com/mohamedyasin2020</a></div>
-        </div>
-      </div>
-      <div class="contact-row">
-        <div class="contact-icon">◎</div>
-        <div>
-          <div class="contact-label">Location</div>
-          <div class="contact-value">Chennai, Tamil Nadu, India</div>
-        </div>
-      </div>
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center">Contact</div>
+    <div class="section-title" style="text-align:center">Let's work together</div>
+    <p style="color:var(--muted);font-weight:300;">I'm currently open to new Flutter Developer roles. Feel free to reach out via any of the channels below.</p>
+    <div class="contact-links">
+      <a href="mailto:mohamednyasin@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        mohamednyasin@gmail.com
+      </a>
+      <a href="tel:8637431026" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91A16 16 0 0 0 15 15.87l.77-.77a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        8637431026
+      </a>
+      <a href="https://www.linkedin.com/in/mohdyasin2020/" class="contact-link" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/mohamedyasin2020" class="contact-link" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://md-adheep.github.io/" class="contact-link" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Portfolio
+      </a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-name">N. Mohamed Yasin</span>
-  <p>Flutter Developer · Chennai, India · 2025</p>
+  <p>Designed & built for Mohamed Yasin · Flutter Developer · Chennai</p>
 </footer>
 
-<script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Skill bar animation
-  const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.skill-fill').forEach(bar => bar.classList.add('animate'));
-      }
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.skills-list').forEach(el => skillObserver.observe(el));
-</script>
 </body>
 </html>
